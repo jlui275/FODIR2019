@@ -6,7 +6,7 @@ def measure_temp():
 
 def convert_fahrenheit(temp):
     temp = temp[:3]
-    fahrenheit = (double(temp) * (9/5)) + 32
+    fahrenheit = (float(temp) * (9/5)) + 32
     return fahrenheit
 
 print(measure_temp())
