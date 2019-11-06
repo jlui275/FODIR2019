@@ -31,22 +31,22 @@ crossPadLeft = (16, -1)
 crossPadRight = (16, 1)
 
 #joystick variables
-# event.code
-leftJoystickX = 0
-leftJoystickY = 1
-rightJoystickX = 2
-rightJoystickY = 5
+# event.code         min, mid, and max values
+leftJoystickX = 0    #0 - min, 32768 - mid, 65535 - max
+leftJoystickY = 1    #0 - min, 32768 - mid, 65535 - max
+rightJoystickX = 2   #0 - min, 32768 - mid, 65535 - max
+rightJoystickY = 5   #0 - min, 32768 - mid, 65535 - max
 
 #trigger variables
 leftTrigger = 10        #max - 1023
 rightTrigger = 9        #max 1023
 #prints out device info at start
-print(controller)
+print(controller.capabilities())
 
 #loop and filter by event code and print the mapped label
 for event in controller.read_loop():
     #triggers, joysticks, and crosspad
-    if event.type == EV_ABS:
+    if event.type == ecodes.EV_ABS:
         #cross pad values
         if (event.code, event.value) == crossPadUp:
             print("Crosspad Up")
@@ -63,7 +63,7 @@ for event in controller.read_loop():
             print "Right Trigger: %s" %event.value
         #joystick values
         elif (event.code == leftJoystickX):
-            print "Left Joystick X: %s\n" %event.value
+            print "Left Joystick X: %s" %event.value
         elif (event.code == leftJoystickY):
             print "Left Joystick Y: %s" %event.value
         elif event.code == rightJoystickX:
@@ -71,7 +71,7 @@ for event in controller.read_loop():
         elif event.code == rightJoystickY:
             print "Right Joystick Y: %s" %event.value
     #button cases
-    elif event.type == EV_KEY:
+    elif event.type == ecodes.EV_KEY:
         if (event.code, event.value) == aBtn:
             print("A")
         elif (event.code, event.value) == bBtn:
@@ -81,9 +81,9 @@ for event in controller.read_loop():
         elif (event.code, event.value) == yBtn:
             print("Y")
         elif (event.code, event.value) == leftJoystick:
-            print("Left Joystick")
+            print("Left Joystick Clicked")
         elif (event.code, event.value) == rightJoystick:
-            print("Right Joystick")
+            print("Right Joystick Clicked")
         elif (event.code, event.value) == selectBtn:
             print("Select")
         elif (event.code, event.value) == startBtn:
