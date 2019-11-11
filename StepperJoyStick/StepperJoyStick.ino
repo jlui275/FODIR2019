@@ -15,6 +15,9 @@ Adafruit_StepperMotor *Motor1 = AFMS.getStepper(200, 1);
 
 Adafruit_StepperMotor *Motor2 = AFMS.getStepper(200, 2);
 
+int stickY = A0;
+int stickX = A1;
+
 
 void setup()
 {
@@ -25,7 +28,7 @@ void setup()
 //    myStepper.setSpeed(10);
   Serial.begin(9600);
     AFMS.begin();
-    Motor1->setSpeed(60);
+    Motor1->setSpeed(30);
     Motor2->setSpeed(30);
 }
 
@@ -36,36 +39,47 @@ void loop()
 //  delay(500);
 //  Motor1->step(100, BACKWARD, SINGLE); 
 //  delay(500);
-  
+
+
+  //FORWARD MOVEMENT
+  if (analogRead(stickY) < 300  & analogRead(stickX) > 300 & analogRead(stickX) < 700  ) {
+
     Motor2->step(1, FORWARD, SINGLE); 
-    delay(50);
-//    Motor2->step(1, BACKWARD, SINGLE); 
-//    delay(500);
-    
-//  Serial.print("Y-Val:");
-//  Serial.print(analogRead(stickY));
-//  Serial.print("\n");
-//  Serial.print("X-Val:");
-//  Serial.print(analogRead(stickX));
-//  Serial.print("\n");
-//
-//  if (analogRead(stickY) < 300  & analogRead(stickX) > 300 & analogRead(stickX) < 700  ) {
-//    myStepper.step(-100); //backwards
-//    Serial.print("Backward");
-//    Serial.print("\n");
-//  }
-//
-//  if (analogRead(stickY) > 700  & analogRead(stickX) > 300 & analogRead(stickX) < 700  ) {
-//    myStepper.step(100); //forwards
-//    Serial.print("Forward");
-//    Serial.print("\n");
-//
-//
-//  }
-//  else {
-//
-//    Serial.print("NEUTRAL");
-//    Serial.print("\n");
-//  }
+    Motor2->step(1, BACKWARD, SINGLE); 
+    delay(30);
+  }
+
+  //BACKWARD MOVEMENT
+  if (analogRead(stickY) > 700  & analogRead(stickX) > 300 & analogRead(stickX) < 700  ) {
+    Motor2->step(1, BACKWARD, SINGLE); 
+    Motor2->step(1, FORWARD, SINGLE); 
+    delay(30);
+
+
+  }
+
+  //TURN LEFT
+  if (analogRead(stickY) > 700  & analogRead(stickX) > 300 & analogRead(stickX) < 700  ) {
+    Motor2->step(1, BACKWARD, SINGLE); 
+    Motor2->step(1, FORWARD, SINGLE); 
+    delay(30);
+
+
+  }
+
+  //TURN RIGHT
+  if (analogRead(stickY) > 700  & analogRead(stickX) > 300 & analogRead(stickX) < 700  ) {
+    Motor2->step(1, BACKWARD, SINGLE); 
+    Motor2->step(1, FORWARD, SINGLE); 
+    delay(30);
+
+
+  }
+  
+  else {
+
+    Serial.print("NEUTRAL");
+    Serial.print("\n");
+  }
 //delay(500); //may comment out and use setSpeed to a low RPM
 }
