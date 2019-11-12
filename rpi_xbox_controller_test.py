@@ -1,8 +1,18 @@
 #import evdev
 from evdev import InputDevice, categorize, ecodes
 
+#import brightlight library for LED module
+from brightpi import *
+
+#initialize pins for LED module
+leds = LED_ALL
+brightPi = BrightPi()
+brightPi.get_led_on_off(leds)
+
+lightOn = 0     #0 - light on    1 - light off
+
 #creates object 'controller' to store the data
-controller = InputDevice('/dev/input/event4')
+controller = InputDevice('/dev/input/event5')
 
 #button code variables
 #(event.code, event.value)
@@ -41,7 +51,7 @@ rightJoystickY = 5   #0 - min, 32768 - mid, 65535 - max
 leftTrigger = 10        #max - 1023
 rightTrigger = 9        #max 1023
 #prints out device info at start
-print(controller.capabilities())
+#print(controller.capabilities())
 
 #loop and filter by event code and print the mapped label
 for event in controller.read_loop():
@@ -58,18 +68,18 @@ for event in controller.read_loop():
             print("Crosspad Right")
         #trigger values
         elif event.code == leftTrigger:
-            print "Left Trigger: %s" %event.value
+            print ("Left Trigger: {}".format(event.value)) 
         elif event.code == rightTrigger:
-            print "Right Trigger: %s" %event.value
+            print ("Right Trigger: {}".format(event.value))
         #joystick values
         elif (event.code == leftJoystickX):
-            print "Left Joystick X: %s" %event.value
+            print ("Left Joystick X: {}".format(event.value))
         elif (event.code == leftJoystickY):
-            print "Left Joystick Y: %s" %event.value
+            print ("Left Joystick Y: {}".format(event.value))
         elif event.code == rightJoystickX:
-            print "Right Joystick X: %s" %event.value
+            print ("Right Joystick X: {}".format(event.value))
         elif event.code == rightJoystickY:
-            print "Right Joystick Y: %s" %event.value
+            print ("Right Joystick Y: {}".format(event.value))
     #button cases
     elif event.type == ecodes.EV_KEY:
         if (event.code, event.value) == aBtn:
@@ -86,6 +96,12 @@ for event in controller.read_loop():
             print("Right Joystick Clicked")
         elif (event.code, event.value) == selectBtn:
             print("Select")
+            if lightOn == 1:
+                brightPi.set_led_on_off(leds, OFF)
+                lightOn = 0
+            else:
+                brightPi.set_led_on_off(leds, ON)
+                lightOn = 1
         elif (event.code, event.value) == startBtn:
             print("Start")
         elif (event.code, event.value) == leftBumper:
