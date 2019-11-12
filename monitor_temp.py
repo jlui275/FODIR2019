@@ -10,4 +10,4 @@ def convert_fahrenheit(temp):
     return fahrenheit
 
 print(measure_temp())
-print "%s'F" %convert_fahrenheit(measure_temp())
+print("{0:.1f}'F".format(convert_fahrenheit(measure_temp())))
