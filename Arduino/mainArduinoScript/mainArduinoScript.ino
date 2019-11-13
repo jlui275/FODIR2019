@@ -13,7 +13,7 @@ int delayAmt = 100;
 Servo panServo;
 Servo tiltServo;
 int panAngle = 90;
-int tiltAngle = 180;
+int tiltAngle = 90;
 
 
 Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
@@ -40,7 +40,6 @@ void loop(){
   if(Serial.available()){         //From RPi to Arduino
     input = Serial.readStringUntil('\n');  //reading string from serial
     Serial.println(input);
-    input = Serial.read();  //reading string from serial
   }
   
   //toggle speed 
@@ -51,65 +50,74 @@ void loop(){
   }
   
   //move robot commands
-  if(input == "LJF\n"){//move 1 step FW
+  if(input == "LJF"){//move 1 step FW
       Motor1->step(1, FORWARD, SINGLE); 
       Motor2->step(1, BACKWARD, SINGLE); 
       delay(delayAmt);
       
-    }else if(input == "LJB\n"){//move 1 step BW
+    }else if(input == "LJB"){//move 1 step BW
       Motor2->step(1, FORWARD, SINGLE); 
       Motor1->step(1, BACKWARD, SINGLE);
       delay(delayAmt);
-    }else if(input == "LJL\n"){//Turn 1 step L
+    }else if(input == "LJL"){//Turn 1 step L
       Motor1->step(1, FORWARD, SINGLE); 
       Motor2->step(1, FORWARD, SINGLE);
       delay(delayAmt);
      
-    }else if(input == "LJR\n"){//Turn 1 step R
+    }else if(input == "LJR"){//Turn 1 step R
       Motor1->step(1, BACKWARD, SINGLE); 
       Motor2->step(1, BACKWARD, SINGLE);
       delay(delayAmt);
 
-<<<<<<< HEAD
+
     }else if((input == "SM\n") || (input == "SR\n")|| (input == "RB\n")){//stop moving FW or BW
-=======
-<<<<<<< HEAD
-    }else if(input == "SM\n"){//stop moving FW or BW
-=======
-    }else if((input == "SM") || (input == "SM")){//stop moving FW or BW
->>>>>>> 8cd12229795fef235d39528bb1ad1098bab4ac1b
->>>>>>> dc2e60ea478439724f16b2147e1993862e21f01d
       Motor1->release();
       Motor2->release();
       delay(delayAmt);
-    }else if(input == "SR\n"){//stop moving Left or Right
-      Motor1->release();
-      Motor2->release();
-      delay(delayAmt);  
-      
+          
      //pan or tilt camera mount
-    }else if (input == "RJL\n"){//pan left
+    }else if (input == "RJL"){//pan left
       //servo camera mount commands 
         panAngle += 3;
+        if(panAngle < 0){
+          panAngle = 0;
+        }else if(panAngle > 180){
+          panAngle = 180;
+        }
         panServo.write(panAngle);
         Motor1->release();
         Motor2->release();  
         delay(delayAmt);
-    }else if (input == "RJR\n"){//pan right
+    }else if (input == "RJR"){//pan right
       //servo camera mount commands
         panAngle -= 3;
-        panServo.write(panAngle); 
+        if(panAngle < 0){
+          panAngle = 0;
+        }else if(panAngle > 180){
+          panAngle = 180;
+        }
+        panServo.write(panAngle);
         Motor1->release();
         Motor2->release();
         delay(delayAmt); 
-    }else if (input == "RJU\n"){//tilt up
+    }else if (input == "RJU"){//tilt up
         tiltAngle -= 5;
+        if(tiltAngle > 180){
+          tiltAngle = 180;
+        }else if(tiltAngle < 0){
+          tiltAngle = 0;
+        }
         tiltServo.write(tiltAngle);
         Motor1->release();
         Motor2->release(); 
         delay(delayAmt);
-    }else if (input == "RJD\n"){//tilt down
+    }else if (input == "RJD"){//tilt down
         tiltAngle += 5;
+        if(tiltAngle > 180){
+          tiltAngle = 180;
+        }else if(tiltAngle < 0){
+          tiltAngle = 0;
+        }
         tiltServo.write(tiltAngle);
         Motor1->release();
         Motor2->release(); 
