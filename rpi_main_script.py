@@ -86,49 +86,63 @@ for event in controller.read_loop():
         elif (event.code == leftJoystickX):
             #print ("Left Joystick X: {}".format(event.value))
             if event.value >= 55000:
-                instruction = "Left Joystick Right"
+                #instruction = "Left Joystick Right"
+                instruction = "LJR"
             elif event.value <= 13000:
-                instruction = "Left Joystick Left"
+                #instruction = "Left Joystick Left"
+                instruction = "LJL"
             elif (event.value > 13000 and event.value <= 25000) or (event.value < 55000 and event.value >= 45000):
-                instruction = "Stop Rotate"
+                #instruction = "Stop Rotate"
+                instruction = "SR"
         elif (event.code == leftJoystickY):
             #print ("Left Joystick Y: {}".format(event.value))
             if event.value >= 55000:
-                instruction = "Left Joystick Backward"
+                #instruction = "Left Joystick Backward"
+                instruction = "LJB"
             elif event.value <= 13000:
-                instruction = "Left Joystick Forward"
+                #instruction = "Left Joystick Forward"
+                instruction = "LJF"
             elif (event.value > 13000 and event.value <= 25000) or (event.value < 55000 and event.value >= 45000):
-                instruction = "Stop Move"
+                #instruction = "Stop Move"
+                instruction = "SM"
         elif event.code == rightJoystickX:
             #print ("Right Joystick X: {}".format(event.value))
             #pan right
             if event.value >= 50000:
-                instruction = "Right Joystick Right"
+                #instruction = "Right Joystick Right"
+                instruction = "RJR"
             #pan left
             elif event.value <= 20000:
-                instruction = "Right Joystick Left"
+                #instruction = "Right Joystick Left"
+                instruction = "RJL"
             elif (event.value > 20000 and event.value <= 25000) or (event.value < 50000 and event.value >= 40000):
-                instruction = "Stop Pan"
+                #instruction = "Stop Pan"
+                instruction = "SP"
         elif event.code == rightJoystickY:
             #print ("Right Joystick Y: {}".format(event.value))
             #tilt up
             if event.value >= 50000:
-                instruction = "Right Joystick Down"
+                #instruction = "Right Joystick Down"
+                instruction = "RJD"
             #tilt down
             elif event.value <= 20000:
-                instruction = "Right Joystick Up"
+                #instruction = "Right Joystick Up"
+                instruction = "RJU"
             elif (event.value > 20000 and event.value <= 25000) or (event.value < 50000 and event.value >= 40000):
-                instruction = "Stop Tilt"
+                #instruction = "Stop Tilt"
+                instruction = "ST"
     #button cases
     elif event.type == ecodes.EV_KEY:
         if (event.code, event.value) == aBtn:
             instruction = "A"
         elif (event.code, event.value) == bBtn:
             if fast == 1:
-                instruction = "B Norm"
+                #instruction = "B Norm"
+                instruction = "BN"
                 fast = 0
             else:
-                instruction = "B Fast"
+                #instruction = "B Fast"
+                instruction = "BF"
                 fast = 1
         elif (event.code, event.value) == xBtn:
             instruction = "X"
@@ -154,3 +168,5 @@ for event in controller.read_loop():
             instruction = "Right Bumper"
     if prevInstruction != instruction:
         print(instruction)
+        instruction_encode = instruction.encode()
+        ser.write(instruction_encode)
