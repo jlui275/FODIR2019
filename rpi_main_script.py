@@ -70,13 +70,13 @@ for event in controller.read_loop():
     if event.type == ecodes.EV_ABS:
         #cross pad values
         if (event.code, event.value) == crossPadUp:
-            instruction = "Crosspad Up"
+            instruction = "Crosspad Up\n"
         elif (event.code, event.value) == crossPadDown:
-            instruction = "Crosspad Down"
+            instruction = "Crosspad Down\n"
         elif (event.code, event.value) == crossPadLeft:
-            instruction = "Crosspad Left"
+            instruction = "Crosspad Left\n"
         elif (event.code, event.value) == crossPadRight:
-            instruction = "Crosspad Right"
+            instruction = "Crosspad Right\n"
         #trigger values
         elif event.code == leftTrigger:
             print ("Left Trigger: {}".format(event.value)) 
@@ -87,73 +87,73 @@ for event in controller.read_loop():
             #print ("Left Joystick X: {}".format(event.value))
             if event.value >= 55000:
                 #instruction = "Left Joystick Right"
-                instruction = "LJR"
+                instruction = "LJR\n"
             elif event.value <= 13000:
                 #instruction = "Left Joystick Left"
-                instruction = "LJL"
+                instruction = "LJL\n"
             elif (event.value > 13000 and event.value <= 25000) or (event.value < 55000 and event.value >= 45000):
                 #instruction = "Stop Rotate"
-                instruction = "SR"
+                instruction = "SR\n"
         elif (event.code == leftJoystickY):
             #print ("Left Joystick Y: {}".format(event.value))
             if event.value >= 55000:
                 #instruction = "Left Joystick Backward"
-                instruction = "LJB"
+                instruction = "LJB\n"
             elif event.value <= 13000:
                 #instruction = "Left Joystick Forward"
-                instruction = "LJF"
+                instruction = "LJF\n"
             elif (event.value > 13000 and event.value <= 25000) or (event.value < 55000 and event.value >= 45000):
                 #instruction = "Stop Move"
-                instruction = "SM"
+                instruction = "SM\n"
         elif event.code == rightJoystickX:
             #print ("Right Joystick X: {}".format(event.value))
             #pan right
             if event.value >= 50000:
                 #instruction = "Right Joystick Right"
-                instruction = "RJR"
+                instruction = "RJR\n"
             #pan left
             elif event.value <= 20000:
                 #instruction = "Right Joystick Left"
-                instruction = "RJL"
+                instruction = "RJL\n"
             elif (event.value > 20000 and event.value <= 25000) or (event.value < 50000 and event.value >= 40000):
                 #instruction = "Stop Pan"
-                instruction = "SP"
+                instruction = "SP\n"
         elif event.code == rightJoystickY:
             #print ("Right Joystick Y: {}".format(event.value))
             #tilt up
             if event.value >= 50000:
                 #instruction = "Right Joystick Down"
-                instruction = "RJD"
+                instruction = "RJD\n"
             #tilt down
             elif event.value <= 20000:
                 #instruction = "Right Joystick Up"
-                instruction = "RJU"
+                instruction = "RJU\n"
             elif (event.value > 20000 and event.value <= 25000) or (event.value < 50000 and event.value >= 40000):
                 #instruction = "Stop Tilt"
-                instruction = "ST"
+                instruction = "ST\n"
     #button cases
     elif event.type == ecodes.EV_KEY:
         if (event.code, event.value) == aBtn:
-            instruction = "A"
+            instruction = "A\n"
         elif (event.code, event.value) == bBtn:
             if fast == 1:
                 #instruction = "B Norm"
-                instruction = "BN"
+                instruction = "BN\n"
                 fast = 0
             else:
                 #instruction = "B Fast"
-                instruction = "BF"
+                instruction = "BF\n"
                 fast = 1
         elif (event.code, event.value) == xBtn:
-            instruction = "X"
+            instruction = "X\n"
         elif (event.code, event.value) == yBtn:
-            instruction = "Y"
+            instruction = "Y\n"
         elif (event.code, event.value) == leftJoystick:
-            instruction = "Left Joystick Clicked"
+            instruction = "Left Joystick Clicked\n"
         elif (event.code, event.value) == rightJoystick:
-            instruction = "Right Joystick Clicked"
+            instruction = "Right Joystick Clicked\n"
         elif (event.code, event.value) == selectBtn:
-            instruction = "Select"
+            instruction = "Select\n"
             if lightOn == 1:
                 brightPi.set_led_on_off(leds, OFF)
                 lightOn = 0
@@ -161,11 +161,11 @@ for event in controller.read_loop():
                 brightPi.set_led_on_off(leds, ON)
                 lightOn = 1
         elif (event.code, event.value) == startBtn:
-            instruction = "Start"
+            instruction = "Start\n"
         elif (event.code, event.value) == leftBumper:
-            instruction = "Left Bumper"
+            instruction = "Left Bumper\n"
         elif (event.code, event.value) == rightBumper:
-            instruction = "Right Bumper"
+            instruction = "Right Bumper\n"
     if prevInstruction != instruction:
         print(instruction)
         instruction_encode = instruction.encode()
