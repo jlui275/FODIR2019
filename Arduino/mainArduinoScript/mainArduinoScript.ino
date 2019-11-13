@@ -38,7 +38,7 @@ void loop(){
   }else if (input == "Right Joystick Y"){
     potValue = Serial.read() //read potentiometer value for Y direction
     //motor commands
-  }else if (input == "Left Joystick X"){
+  }else if (input == "Left Joystick X Forward"){
     potValue = Serial.read() //read potentiometer value for X direction
     //servo camera mount commands
     if(potValue > 30000){
