@@ -17,7 +17,7 @@ lightOn = 0     #0 - light on    1 - light off
 fast = 0    #0 - normal speed   1 - fast speed
 
 #intialize serial
-ser = serial.Serial('/dev/ttyACM0', 9600)
+ser = serial.Serial('/dev/ttyACM1', 9600)
 instruction = ""
 
 #creates object 'controller' to store the data
