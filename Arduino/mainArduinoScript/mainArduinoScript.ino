@@ -5,7 +5,7 @@
 #include <Adafruit_PWMServoDriver.h>
 #include <Servo.h>
 
-char input;
+String input;
 bool normalSpeed = true;
 int delayAmt = 100;
 
@@ -70,10 +70,22 @@ void loop(){
       Motor2->step(1, BACKWARD, SINGLE);
       delay(delayAmt);
 
+<<<<<<< HEAD
     }else if((input == "SM\n") || (input == "SR\n")|| (input == "RB\n")){//stop moving FW or BW
+=======
+<<<<<<< HEAD
+    }else if(input == "SM\n"){//stop moving FW or BW
+=======
+    }else if((input == "SM") || (input == "SM")){//stop moving FW or BW
+>>>>>>> 8cd12229795fef235d39528bb1ad1098bab4ac1b
+>>>>>>> dc2e60ea478439724f16b2147e1993862e21f01d
       Motor1->release();
       Motor2->release();
       delay(delayAmt);
+    }else if(input == "SR\n"){//stop moving Left or Right
+      Motor1->release();
+      Motor2->release();
+      delay(delayAmt);  
       
      //pan or tilt camera mount
     }else if (input == "RJL\n"){//pan left
