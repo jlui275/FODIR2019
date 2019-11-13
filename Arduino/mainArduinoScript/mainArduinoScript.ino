@@ -44,59 +44,59 @@ void loop(){
   }
   
   //toggle speed 
-  if(input == "B" && normalSpeed == true){//B button press
+  if(input == "B\n" && normalSpeed == true){//B button press
     delayAmt = 250;//slowing down from normal speed
-  }else if(input == "B" && normalSpeed == false){
+  }else if(input == "B\n" && normalSpeed == false){
     delayAmt = 100;//speeding up from slowspeed
   }
   
   //move robot commands
-  if(input == "LJF"){//move 1 step FW
+  if(input == "LJF\n"){//move 1 step FW
       Motor1->step(1, FORWARD, SINGLE); 
       Motor2->step(1, BACKWARD, SINGLE); 
       delay(delayAmt);
       
-    }else if(input == "LJB"){//move 1 step BW
+    }else if(input == "LJB\n"){//move 1 step BW
       Motor2->step(1, FORWARD, SINGLE); 
       Motor1->step(1, BACKWARD, SINGLE);
       delay(delayAmt);
-    }else if(input == "LJL"){//Turn 1 step L
+    }else if(input == "LJL\n"){//Turn 1 step L
       Motor1->step(1, FORWARD, SINGLE); 
       Motor2->step(1, FORWARD, SINGLE);
       delay(delayAmt);
      
-    }else if(input == "LJR"){//Turn 1 step R
+    }else if(input == "LJR\n"){//Turn 1 step R
       Motor1->step(1, BACKWARD, SINGLE); 
       Motor2->step(1, BACKWARD, SINGLE);
       delay(delayAmt);
 
-    }else if((input == "SM") || (input == "SM")){//stop moving FW or BW
+    }else if((input == "SM\n") || (input == "SR\n")|| (input == "RB\n")){//stop moving FW or BW
       Motor1->release();
       Motor2->release();
       delay(delayAmt);
       
      //pan or tilt camera mount
-    }else if (input == "RJL"){//pan left
+    }else if (input == "RJL\n"){//pan left
       //servo camera mount commands 
         panAngle += 3;
         panServo.write(panAngle);
         Motor1->release();
         Motor2->release();  
         delay(delayAmt);
-    }else if (input == "RJR"){//pan right
+    }else if (input == "RJR\n"){//pan right
       //servo camera mount commands
         panAngle -= 3;
         panServo.write(panAngle); 
         Motor1->release();
         Motor2->release();
         delay(delayAmt); 
-    }else if (input == "RJU"){//tilt up
+    }else if (input == "RJU\n"){//tilt up
         tiltAngle -= 5;
         tiltServo.write(tiltAngle);
         Motor1->release();
         Motor2->release(); 
         delay(delayAmt);
-    }else if (input == "RJD"){//tilt down
+    }else if (input == "RJD\n"){//tilt down
         tiltAngle += 5;
         tiltServo.write(tiltAngle);
         Motor1->release();
