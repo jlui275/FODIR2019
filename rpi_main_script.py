@@ -108,27 +108,27 @@ for event in controller.read_loop():
         elif event.code == rightJoystickX:
             #print ("Right Joystick X: {}".format(event.value))
             #pan right
-            if event.value >= 50000:
+            if event.value >= 55000:
                 #instruction = "Right Joystick Right"
                 instruction = "RJR\n"
             #pan left
-            elif event.value <= 20000:
+            elif event.value <= 15000:
                 #instruction = "Right Joystick Left"
                 instruction = "RJL\n"
-            elif (event.value > 20000 and event.value <= 25000) or (event.value < 50000 and event.value >= 40000):
+            elif (event.value > 15000 and event.value <= 27000) or (event.value < 55000 and event.value >= 38000):
                 #instruction = "Stop Pan"
                 instruction = "SP\n"
         elif event.code == rightJoystickY:
             #print ("Right Joystick Y: {}".format(event.value))
             #tilt up
-            if event.value >= 50000:
+            if event.value >= 55000:
                 #instruction = "Right Joystick Down"
                 instruction = "RJD\n"
             #tilt down
-            elif event.value <= 20000:
+            elif event.value <= 15000:
                 #instruction = "Right Joystick Up"
                 instruction = "RJU\n"
-            elif (event.value > 20000 and event.value <= 25000) or (event.value < 50000 and event.value >= 40000):
+            elif (event.value > 15000 and event.value <= 25000) or (event.value < 55000 and event.value >= 38000):
                 #instruction = "Stop Tilt"
                 instruction = "ST\n"
     #button cases
@@ -165,8 +165,18 @@ for event in controller.read_loop():
         elif (event.code, event.value) == leftBumper:
             instruction = "Left Bumper\n"
         elif (event.code, event.value) == rightBumper:
-            instruction = "Right Bumper\n"
+            #instruction = "Right Bumper\n"
+            instruction = "RB\n"
+    
     if prevInstruction != instruction:
-        print(instruction)
-        instruction_encode = instruction.encode()
-        ser.write(instruction_encode)
+        if not( ((prevInstruction == "LJF\n" or prevInstruction == "LJB\n") and instruction == "SR\n") or
+                ((prevInstruction == "LJR\n" or prevInstruction == "LJL\n") and instruction == "SM\n") or
+                ((prevInstruction == "RJR\n" or prevInstruction == "RJL\n") and instruction == "ST\n") or
+                ((prevInstruction == "RJU\n" or prevInstruction == "RJD\n") and instruction == "SP\n") or
+                (prevInstruction == "SP\n" and instruction == "ST\n") or
+                (prevInstruction == "ST\n" and instruction == "SP\n") or
+                (prevInstruction == "SR\n" and instruction == "SM\n") or
+                (prevInstruction == "SM\n" and instruction == "SR\n") ):
+            print(instruction)
+            instruction_encode = instruction.encode()
+            ser.write(instruction_encode)
