@@ -49,6 +49,7 @@ void loop(){
   }
   
   //move robot commands
+<<<<<<< HEAD
   if(input == "Left Joystick Forward"){//move 1 step FW
       Motor1->step(1, FORWARD, SINGLE); 
       Motor2->step(1, BACKWARD, SINGLE); 
@@ -101,5 +102,34 @@ void loop(){
         Motor2->release(); 
         delay(delayAmt);
     } 
+=======
+  if(input == "Right Joystick X"){
+    potValue = Serial.read() //read potentiometer value for X direction
+    //motor commands
+  }else if (input == "Right Joystick Y"){
+    potValue = Serial.read() //read potentiometer value for Y direction
+    //motor commands
+  }else if (input == "Left Joystick X Forward"){
+    potValue = Serial.read() //read potentiometer value for X direction
+    //servo camera mount commands
+    if(potValue > 30000){
+      panAngle += 5;
+      panServo.write(tiltAngle);
+    }else if(potValue < 10000){
+      panAngle -= 5;
+      panServo.write(tiltAngle);
+    }
+  }else if (input == "Left Joystick Y"){
+    potValue = Serial.read() //read potentiometer value for Y direction
+    //servo cmaera mount commands
+    if(potValue > 30000){
+      tiltAngle += 5;
+      tiltServo.write(tiltAngle);
+    }else if(potValue < 10000){
+      tiltAngle -= 5;
+      tiltServo.write(tiltAngle);
+    }
+  } 
+>>>>>>> fac73472ca5460aab0ce3d4e5b010d88cd87ee64
 
 }

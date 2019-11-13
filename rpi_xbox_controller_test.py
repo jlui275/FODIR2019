@@ -53,6 +53,7 @@ rightTrigger = 9        #max 1023
 #prints out device info at start
 #print(controller.capabilities())
 
+
 #loop and filter by event code and print the mapped label
 for event in controller.read_loop():
     #triggers, joysticks, and crosspad
