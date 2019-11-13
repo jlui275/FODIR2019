@@ -38,12 +38,9 @@ void setup(){
 void loop(){
   
   if(Serial.available()){         //From RPi to Arduino
-<<<<<<< HEAD
     input = Serial.readStringUntil('\n');  //reading string from serial
     Serial.println(input);
-=======
     input = Serial.read();  //reading string from serial
->>>>>>> 601cac1f9a53ba232fb11fdcdc9a64b81923f018
   }
   
   //toggle speed 
