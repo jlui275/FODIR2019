@@ -70,7 +70,7 @@ void loop(){
       Motor2->step(1, BACKWARD, SINGLE);
       delay(delayAmt);
 
-    }else if(input == "SM"){//stop moving FW or BW
+    }else if((input == "SM") || (input == "SM")){//stop moving FW or BW
       Motor1->release();
       Motor2->release();
       delay(delayAmt);
