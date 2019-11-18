@@ -122,5 +122,10 @@ void loop(){
         Motor1->release();
         Motor2->release(); 
         delay(delayAmt);
+    }else if (input =="Start"{
+      panServo.write(90);
+      tiltServo.write(90);
+      tiltAngle = 90;
+      panAngle = 90;
     }
 }
