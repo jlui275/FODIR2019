@@ -25,8 +25,8 @@ Adafruit_StepperMotor *Motor2 = AFMS.getStepper(200, 2);
 void setup(){
   Serial.begin(9600);
     AFMS.begin();
-    Motor1->setSpeed(30);
-    Motor2->setSpeed(30);
+    Motor1->setSpeed(150);
+    Motor2->setSpeed(150);
 
   
   panServo.attach(9);
@@ -51,22 +51,22 @@ void loop(){
   
   //move robot commands
   if(input == "LJF"){//move 1 step FW
-      Motor1->step(1, FORWARD, SINGLE); 
-      Motor2->step(1, BACKWARD, SINGLE); 
+      Motor1->step(1, BACKWARD, DOUBLE); 
+      Motor2->step(1, BACKWARD, DOUBLE);
       delay(delayAmt);
       
     }else if(input == "LJB"){//move 1 step BW
-      Motor2->step(1, FORWARD, SINGLE); 
-      Motor1->step(1, BACKWARD, SINGLE);
+      Motor1->step(1, FORWARD, DOUBLE); 
+      Motor2->step(1, FORWARD, DOUBLE);
       delay(delayAmt);
     }else if(input == "LJL"){//Turn 1 step L
-      Motor1->step(1, FORWARD, SINGLE); 
-      Motor2->step(1, FORWARD, SINGLE);
+      Motor1->step(1, FORWARD, DOUBLE); 
+      Motor2->step(1, BACKWARD, DOUBLE); 
       delay(delayAmt);
      
     }else if(input == "LJR"){//Turn 1 step R
-      Motor1->step(1, BACKWARD, SINGLE); 
-      Motor2->step(1, BACKWARD, SINGLE);
+      Motor2->step(1, FORWARD, DOUBLE); 
+      Motor1->step(1, BACKWARD, DOUBLE);
       delay(delayAmt);
 
 
@@ -122,7 +122,7 @@ void loop(){
         Motor1->release();
         Motor2->release(); 
         delay(delayAmt);
-    }else if (input =="Start"{
+    }else if (input =="Start"){
       panServo.write(90);
       tiltServo.write(90);
       tiltAngle = 90;
